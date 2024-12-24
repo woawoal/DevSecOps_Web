@@ -36,12 +36,12 @@
 
 ## ▶️ 개발 환경
   ### 플렛폼
-    - Rocky Linux v9.0
+  - Rocky Linux v9.0
   
   ### 기타
-    - MariaDB v10.5.22
-    - PHP v8.0.30
-    - node.js v22.11.0
+  - MariaDB v10.5.22
+  - PHP v8.0.30
+  - node.js v22.11.0
 
 ## ▶️ 사용 IDE
 **VScode(Cursor) v0.44.8**
