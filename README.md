@@ -19,7 +19,8 @@
 ## 사용 IDE
 
 ## 기술 스택
-![JavaScript](https://badgen.net/badge/JavaScript/green)
+![JavaScript](https://img.shields.io/badge/JavaScript-FFD700?style=flat&logo=javascript)
+
 
 
 ## END POINT
