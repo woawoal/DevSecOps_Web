@@ -36,42 +36,42 @@ RUN mkdir -p /docker-entrypoint-initdb.d
 RUN printf '#!/bin/bash\n\
 /usr/libexec/mariadbd --user=mysql &\n\
 sleep 5\n\
-mysql -e "CREATE DATABASE IF NOT EXISTS LED_WG;"\n\
-mysql -e "CREATE USER IF NOT EXISTS '\''root'\''@'\''localhost'\'' IDENTIFIED BY '\''1234'\''"\n\
-mysql -e "GRANT ALL PRIVILEGES ON LED_WG.* TO '\''root'\''@'\''localhost'\''"\n\
-mysql -e "FLUSH PRIVILEGES;"\n\
-mysql -e "CREATE TABLE users (
-    	u_id INT NOT NULL AUTO_INCREMENT,
-	nickname VARCHAR(50) NOT NULL,
-   	username VARCHAR(50) NOT NULL,
-	password VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-	user_role VARCHAR(50) NOT NULL,
-    	PRIMARY KEY (u_id)
-);"\n\
-mysql -e "CREATE TABLE challenges_data (
-	c_id INT NOT NULL AUTO_INCREMENT,
-	c_title VARCHAR(50) NOT NULL,
-	c_ssh VARCHAR(50),
-	c_web TINYINT(1 )NOT NULL,
-	c_link VARCHAR(50),
-	c_hint TEXT,
-	c_point int,
-	c_difficulty VARCHAR(50),
-	c_key VARCHAR(50),
-	c_text TEXT,
-	c_solves int,
-	PRIMARY KEY (c_id)
-);"\n\
-mysql -e "CREATE TABLE user_data (
-    	d_id INT NOT NULL AUTO_INCREMENT,
-    	d_uid INT,
-    	d_cid INT,
-	d_time datetime,
-    PRIMARY KEY (d_id),
-    FOREIGN KEY (d_uid) REFERENCES users(u_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (d_cid) REFERENCES challenges_data(c_id) ON DELETE CASCADE ON UPDATE CASCADE
-);"\n\
+mysql -e "CREATE DATABASE IF NOT EXISTS LED_WG;" && \
+mysql -e "CREATE USER IF NOT EXISTS '\''root'\''@'\''localhost'\'' IDENTIFIED BY '\''1234'\''" && \
+mysql -e "GRANT ALL PRIVILEGES ON LED_WG.* TO '\''root'\''@'\''localhost'\''" && \
+mysql -e "FLUSH PRIVILEGES;" && \
+mysql -e "CREATE TABLE users ( \
+    u_id INT NOT NULL AUTO_INCREMENT, \
+    nickname VARCHAR(50) NOT NULL, \
+    username VARCHAR(50) NOT NULL, \
+    password VARCHAR(50) NOT NULL, \
+    email VARCHAR(50) NOT NULL, \
+    user_role VARCHAR(50) NOT NULL, \
+    PRIMARY KEY (u_id) \
+);" && \
+mysql -e "CREATE TABLE challenges_data ( \
+    c_id INT NOT NULL AUTO_INCREMENT, \
+    c_title VARCHAR(50) NOT NULL, \
+    c_ssh VARCHAR(50), \
+    c_web TINYINT(1) NOT NULL, \
+    c_link VARCHAR(50), \
+    c_hint TEXT, \
+    c_point INT, \
+    c_difficulty VARCHAR(50), \
+    c_key VARCHAR(50), \
+    c_text TEXT, \
+    c_solves INT, \
+    PRIMARY KEY (c_id) \
+);" && \
+mysql -e "CREATE TABLE user_data ( \
+    d_id INT NOT NULL AUTO_INCREMENT, \
+    d_uid INT, \
+    d_cid INT, \
+    d_time DATETIME, \
+    PRIMARY KEY (d_id), \
+    FOREIGN KEY (d_uid) REFERENCES users(u_id) ON DELETE CASCADE ON UPDATE CASCADE, \
+    FOREIGN KEY (d_cid) REFERENCES challenges_data(c_id) ON DELETE CASCADE ON UPDATE CASCADE \
+);" \n\
 pkill mariadbd\n\
 sleep 5\n' > /docker-entrypoint-initdb.d/init-db.sh && \
     chmod +x /docker-entrypoint-initdb.d/init-db.sh
