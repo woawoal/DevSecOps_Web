@@ -25,7 +25,7 @@ RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 # MariaDB 보안 설정 및 초기 DB/사용자 설정
 RUN echo "[mysqld]" >> /etc/my.cnf.d/mariadb-server.cnf && \
-    echo "port = 3307" >> /etc/my.cnf.d/mariadb-server.cnf && \
+    echo "port = 3306" >> /etc/my.cnf.d/mariadb-server.cnf && \
     echo "bind-address = 0.0.0.0" >> /etc/my.cnf.d/mariadb-server.cnf && \
     echo "default-authentication-plugin = mysql_native_password" >> /etc/my.cnf.d/mariadb-server.cnf
 
@@ -92,7 +92,7 @@ RUN chown -R apache:apache /var/www/html && \
     chmod -R 755 /var/www/html
 
 # 80 포트 노출
-EXPOSE 80 3307
+EXPOSE 80 3306
 
 # 서비스 시작 스크립트 생성
 RUN printf '#!/bin/bash\n\
