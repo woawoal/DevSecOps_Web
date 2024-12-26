@@ -1,0 +1,34 @@
+# k8s-yaml/web-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wargame-web
+spec:
+  selector:
+    matchLabels:
+      app: wargame-web
+  template:
+    metadata:
+      labels:
+        app: wargame-web
+        node-type: webserver
+    spec:
+      nodeSelector:
+        node-type: webserver
+      containers:
+      - name: wargame-web
+        image: wargame-web:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_HOST
+          value: "wargame-db-service"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_DATABASE
+          value: "LED_WG"
+        - name: DB_USERNAME
+          value: "root"
+        - name: DB_PASSWORD
+          value: "1234"
