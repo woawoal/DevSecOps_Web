@@ -29,6 +29,6 @@ spec:
         - name: DB_DATABASE
           value: "LED_WG"
         - name: DB_USERNAME
-          value: "root"
+          value: "wargame"
         - name: DB_PASSWORD
           value: "1234"
