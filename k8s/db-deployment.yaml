@@ -28,7 +28,7 @@ spec:
           value: "1234"
         - name: MYSQL_DATABASE
           value: "LED_WG"
-        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+        - name: MARIADB_ALLOW_EMPTY_ROOT_PASSWORD
           value: "no"
         - name: MYSQL_ROOT_HOST
           value: "%"
