@@ -1,7 +1,7 @@
 <?php
 
 // $host = 'localhost';
-$servername = "db-service"; // 쿠버네티스 Service 이름
+$servername = "wargame-db-service"; // 쿠버네티스 Service 이름
 $db = 'LED_WG';
 $user = 'root';
 $pass = '1234';
