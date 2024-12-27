@@ -36,20 +36,20 @@ spec:
           value: "no"
         - name: MYSQL_ROOT_HOST
           value: "%"
-      initContainers:
-      - name: sql-init
-        image: mariadb:latest
-        command:
-        - sh
-        - -c
-        - |
-          # 대기 후 SQL 명령어 실행
-          until mysqladmin ping -h "localhost" --silent; do
-            echo "Waiting for MariaDB to start..."
-            sleep 2
-          done
-          mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "CREATE DATABASE IF NOT EXISTS LED_WG;"
-          mysql -u root -p${MYSQL_ROOT_PASSWORD} LED_WG -e "CREATE TABLE IF NOT EXISTS users (u_id INT NOT NULL AUTO_INCREMENT, nickname VARCHAR(50), username VARCHAR(50), password VARCHAR(50), email VARCHAR(50), user_role VARCHAR(50), PRIMARY KEY (u_id));"
-          mysql -u root -p${MYSQL_ROOT_PASSWORD} LED_WG -e "CREATE TABLE IF NOT EXISTS challenges_data (c_id INT NOT NULL AUTO_INCREMENT, c_title VARCHAR(50), c_ssh VARCHAR(50), c_web TINYINT(1), c_link VARCHAR(50), c_hint TEXT, c_point INT, c_difficulty VARCHAR(50), c_key VARCHAR(50), c_text TEXT, c_solves INT, PRIMARY KEY (c_id));"
-          mysql -u root -p${MYSQL_ROOT_PASSWORD} LED_WG -e "CREATE TABLE IF NOT EXISTS user_data (d_id INT NOT NULL AUTO_INCREMENT, d_uid INT, d_cid INT, d_time DATETIME, PRIMARY KEY (d_id), FOREIGN KEY (d_uid) REFERENCES users(u_id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (d_cid) REFERENCES challenges_data(c_id) ON DELETE CASCADE ON UPDATE CASCADE);"
-          mysql -u root -p${MYSQL_ROOT_PASSWORD} LED_WG -e "GRANT ALL PRIVILEGES ON LED_WG.* TO 'wargame'@'%' IDENTIFIED BY '1234';"
+        # volumeMounts:
+        # - name: mariadb-storage
+        #   mountPath: /var/lib/mysql
+        # - name: mariadb-backup
+        #   mountPath: /backup
+        # - name: mariadb-init
+        #   mountPath: /docker-entrypoint-initdb.d
+      # volumes:
+      # - name: mariadb-storage
+      #   persistentVolumeClaim:
+      #     claimName: mariadb-pvc
+      # - name: mariadb-backup
+      #   persistentVolumeClaim:
+      #     claimName: mariadb-backup-pvc
+      # - name: mariadb-init
+      #   configMap:
+      #     name: mariadb-init
