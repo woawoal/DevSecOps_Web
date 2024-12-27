@@ -87,7 +87,7 @@ if ($result_u_check->num_rows > 0) {
 
 
 // Prepared Statement를 사용하여 SQL 인젝션 방지
-$stmt_insert = $conn->prepare("INSERT INTO users values(null,?,?,?,0,'test@test.com','user')");
+$stmt_insert = $conn->prepare("INSERT INTO users values(null,?,?,?,'test@test.com','user')");
 $stmt_insert->bind_param("sss", $nickname, $username, $password); // "s" 는 추가할 문자열의 갯수
 $stmt_insert->execute();
 
