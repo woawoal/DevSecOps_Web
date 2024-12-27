@@ -28,23 +28,28 @@ spec:
           value: "1234"
         - name: MYSQL_DATABASE
           value: "LED_WG"
-        - name: MARIADB_ALLOW_EMPTY_ROOT_PASSWORD
+        - name: MYSQL_USER
+          value: "wargame"
+        - name: MYSQL_PASSWORD
+          value: "1234"
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
           value: "no"
         - name: MYSQL_ROOT_HOST
           value: "%"
-        - name: MARIADB_MYSQL_LOCALHOST_USER
-          value: "1"
-        - name: MARIADB_MYSQL_LOCALHOST_GRANTS
-          value: "ALL"
         volumeMounts:
         - name: mariadb-storage
           mountPath: /var/lib/mysql
         - name: mariadb-backup
           mountPath: /backup
+        - name: mariadb-init
+          mountPath: /docker-entrypoint-initdb.d
       volumes:
       - name: mariadb-storage
         persistentVolumeClaim:
           claimName: mariadb-pvc
       - name: mariadb-backup
         persistentVolumeClaim:
-          claimName: mariadb-backup-pvc 
+          claimName: mariadb-backup-pvc
+      - name: mariadb-init
+        configMap:
+          name: mariadb-init
