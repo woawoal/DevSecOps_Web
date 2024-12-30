@@ -10,10 +10,7 @@ spec:
     metadata:
       labels:
         app: wargame-db
-        node-type: web-db
     spec:
-      nodeSelector:
-        node-type: web-db
       containers:
       - name: mariadb
         image: mariadb:latest
@@ -36,20 +33,10 @@ spec:
           value: "no"
         - name: MYSQL_ROOT_HOST
           value: "%"
-        # volumeMounts:
-        # - name: mariadb-storage
-        #   mountPath: /var/lib/mysql
-        # - name: mariadb-backup
-        #   mountPath: /backup
-        # - name: mariadb-init
-        #   mountPath: /docker-entrypoint-initdb.d
-      # volumes:
-      # - name: mariadb-storage
-      #   persistentVolumeClaim:
-      #     claimName: mariadb-pvc
-      # - name: mariadb-backup
-      #   persistentVolumeClaim:
-      #     claimName: mariadb-backup-pvc
-      # - name: mariadb-init
-      #   configMap:
-      #     name: mariadb-init
+        volumeMounts:
+        - name: mariadb-init
+          mountPath: /docker-entrypoint-initdb.d
+      volumes:
+      - name: mariadb-init
+        configMap:
+          name: mariadb-init
