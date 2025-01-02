@@ -36,6 +36,3 @@ jobs:
           -d '{"status":"success"}' \
           https://2c32-58-149-46-252.ngrok-free.app
 
-      - name: Debug Docker Username
-        run: echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}" # 실제 값은 마스킹됨
-
