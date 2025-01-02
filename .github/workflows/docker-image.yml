@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/wargame:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/wargame:latest
       - name: Trigger Jenkins Webhook (on Success)
         if: ${{ success() }}
         run: |
