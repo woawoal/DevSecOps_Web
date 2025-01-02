@@ -1,2 +1,4 @@
 build test
 build test2
+Repository secrets 이름에 오타가 있었음
+Docekr > Docker로 수정
